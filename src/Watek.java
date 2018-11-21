@@ -1,14 +1,12 @@
 class Watek extends Thread{
 
-
-    Obraz obr;
-    char znak;
+    private Obraz obr;
+    private char znak;
 
     Watek (Obraz obr,char a){
         this.obr = obr;
         znak = a;
     }
-
 
     @Override
     public void run(){

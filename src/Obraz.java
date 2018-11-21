@@ -65,8 +65,6 @@ class Obraz {
     }
 
     public void calculate_part_of_histogram(char znak){
-
-
         for(int i=0;i<size_n;i++) {
             for(int j=0;j<size_m;j++) {
                     if(tab[i][j] == (char)(znak+33)) histogram[znak]++;
@@ -74,27 +72,26 @@ class Obraz {
         }
 
     }
-    public int calculate_and_return_part_of_histogram(char znak){
-        int localhistogram = 0;
+    public int[] calculate_and_return_part_of_histogram(char znak1,char znak2){
+        int localHist[] = new int [znak2-znak1];
 
         for(int i=0;i<size_n;i++) {
             for(int j=0;j<size_m;j++) {
-                    if(tab[i][j] == (char)(znak+33)) localhistogram++;
+                int localChar = tab[i][j];
+                for(int k = znak1;k<znak2;k++)
+                {
+                    int index = k-znak1;
+                    if(localChar == (char)(k+33)) {
+                        localHist[index]++;
+                        break;
+                    }
+                }
             }
         }
-        return localhistogram;
+        return localHist;
     }
 
-   public void print_histogram(){
 
-        for(int i=0;i<94;i++) {
-            System.out.print("Wątek"+Thread.currentThread().getId()+" "+(int)i+": ");
-            for(int j=0;j<histogram[i];j++)
-                System.out.print("=");
-            System.out.print("\n");
-        }
-
-    }
 
     int [] calculateRowHistogram(int rowNmber){
         int [] localHistogram= new int [94];
@@ -109,7 +106,7 @@ class Obraz {
     synchronized public void print_part_of_histogram(char i){
 
 
-        System.out.print("Wątek"+Thread.currentThread().getId()+" "+(int)i+": ");
+        System.out.print("Wątek "+(Thread.currentThread().getId()-11)+" ["+(char)(i+33)+"]: ");
         for(int j=0;j<histogram[i];j++)
             System.out.print("=");
         System.out.print("\n");
